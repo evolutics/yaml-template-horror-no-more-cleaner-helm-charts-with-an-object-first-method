@@ -6,6 +6,7 @@
     "metadata" (dict
       "name" .custom.serviceAccountName
       "labels" .custom.fullLabels
+      "annotations" .Values.serviceAccount.annotations
     )
     "automountServiceAccountToken" true
   )
