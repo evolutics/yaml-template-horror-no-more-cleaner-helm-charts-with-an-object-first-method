@@ -8,7 +8,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "example.fullName" . }}
   labels:
-    {{- include "example.labels" . | nindent 4 }}
+    {{- include "example.fullLabels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -28,7 +28,7 @@ Consider this form instead:
   "kind" "ConfigMap"
   "metadata" (dict
     "name" .custom.fullName
-    "labels" .custom.labels
+    "labels" .custom.fullLabels
     "annotations" .Values.annotations
   )
   "data" (dict
