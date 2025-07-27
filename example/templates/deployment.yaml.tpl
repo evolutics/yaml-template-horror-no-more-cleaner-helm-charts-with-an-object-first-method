@@ -1,6 +1,5 @@
 {{ include "example.customObjects" . }}
-{{
-(dict
+{{ (dict
   "apiVersion" "apps/v1"
   "kind" "Deployment"
   "metadata" (dict
@@ -26,5 +25,4 @@
       )
     )
   )
-) | toYaml
-}}
+) | toYaml }}
