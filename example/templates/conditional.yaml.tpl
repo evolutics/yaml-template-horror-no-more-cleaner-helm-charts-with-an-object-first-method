@@ -1,4 +1,4 @@
-{{ include "example.customObjects" . }}
+{{ include "my-chart.customObjects" . }}
 {{ toYaml (.Values.serviceAccount.create | ternary
   (dict
     "apiVersion" "v1"

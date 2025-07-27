@@ -6,9 +6,9 @@ Most Helm chart templates look something like this:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ include "example.serviceAccountName" . | quote }}
+  name: {{ include "my-chart.serviceAccountName" . | quote }}
   labels:
-    {{- include "example.fullLabels" . | nindent 4 }}
+    {{- include "my-chart.fullLabels" . | nindent 4 }}
   {{- with .Values.serviceAccount.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -21,7 +21,7 @@ The construction of a Kubernetes object is mixed with its YAML encoding.
 Consider this form instead:
 
 ```
-{{ include "example.customObjects" . }}
+{{ include "my-chart.customObjects" . }}
 {{ toYaml (dict
   "apiVersion" "v1"
   "kind" "ServiceAccount"

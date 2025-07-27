@@ -1,4 +1,4 @@
-{{- define "example.customObjects" -}}
+{{- define "my-chart.customObjects" -}}
 
 {{- $selectorLabels := dict
   "app.kubernetes.io/name" .Chart.Name

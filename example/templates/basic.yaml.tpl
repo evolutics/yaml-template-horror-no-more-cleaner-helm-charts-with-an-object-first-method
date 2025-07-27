@@ -1,4 +1,4 @@
-{{ include "example.customObjects" . }}
+{{ include "my-chart.customObjects" . }}
 {{ toYaml (dict
   "apiVersion" "v1"
   "kind" "ServiceAccount"

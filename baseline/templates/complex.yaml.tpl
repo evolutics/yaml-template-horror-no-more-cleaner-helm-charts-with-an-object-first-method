@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "example.fullName" . | quote }}
+  name: {{ include "my-chart.fullName" . | quote }}
   labels:
-    {{- include "example.fullLabels" . | nindent 4 }}
+    {{- include "my-chart.fullLabels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "example.selectorLabels" . | nindent 6 }}
+      {{- include "my-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "example.fullLabels" . | nindent 8 }}
+        {{- include "my-chart.fullLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "example.serviceAccountName" . | quote }}
+      serviceAccountName: {{ include "my-chart.serviceAccountName" . | quote }}
       containers:
         - name: {{ .Chart.Name | quote }}
           image: "docker.io/hashicorp/http-echo:1.0"
