@@ -1,5 +1,5 @@
 {{ include "example.customObjects" . }}
-{{ (dict
+{{ toYaml (dict
   "apiVersion" "v1"
   "kind" "ServiceAccount"
   "metadata" (dict
@@ -8,4 +8,4 @@
     "annotations" .Values.serviceAccount.annotations
   )
   "automountServiceAccountToken" .Values.serviceAccount.automount
-) | toYaml }}
+) }}

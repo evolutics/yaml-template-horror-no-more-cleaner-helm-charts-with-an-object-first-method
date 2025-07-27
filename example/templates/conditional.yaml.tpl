@@ -1,5 +1,5 @@
 {{ include "example.customObjects" . }}
-{{ (.Values.serviceAccount.create | ternary
+{{ toYaml (.Values.serviceAccount.create | ternary
   (dict
     "apiVersion" "v1"
     "kind" "ServiceAccount"
@@ -11,4 +11,4 @@
     "automountServiceAccountToken" .Values.serviceAccount.automount
   )
   nil
-) | toYaml }}
+) }}

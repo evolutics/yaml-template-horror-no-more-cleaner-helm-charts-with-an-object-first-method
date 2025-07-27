@@ -22,7 +22,7 @@ Consider this form instead:
 
 ```
 {{ include "example.customObjects" . }}
-{{ (dict
+{{ toYaml (dict
   "apiVersion" "v1"
   "kind" "ServiceAccount"
   "metadata" (dict
@@ -31,8 +31,8 @@ Consider this form instead:
     "annotations" .Values.serviceAccount.annotations
   )
   "automountServiceAccountToken" .Values.serviceAccount.automount
-) | toYaml }}
+) }}
 ```
 
-Here the object is first fully constructed using template functions like `dict`.
-The encoding happens only at the very end with `toYaml`.
+Here the object is fully constructed using template functions like `dict`. Its
+encoding happens at the top-level with `toYaml`.
