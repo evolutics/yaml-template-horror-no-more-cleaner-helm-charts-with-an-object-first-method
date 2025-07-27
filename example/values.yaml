@@ -1,4 +1,4 @@
-extraLabels: {} # Check if Helm option `--labels` makes this obsolete.
+extraLabels: {}
 
 serviceAccount:
   create: true
