@@ -19,6 +19,7 @@
         buildInputs =
           (with pkgs; [
             kubernetes-helm
+            yq
           ])
           ++ [travel-kit.packages.${system}.default];
       };

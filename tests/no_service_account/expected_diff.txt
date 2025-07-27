@@ -1,0 +1,15 @@
+--- Bad
++++ Good
+@@ -3,6 +3,7 @@
+   "automountServiceAccountToken": true,
+   "kind": "ServiceAccount",
+   "metadata": {
++    "annotations": {},
+     "labels": {
+       "app.kubernetes.io/instance": "release-name",
+       "app.kubernetes.io/managed-by": "Helm",
+@@ -52,3 +53,4 @@
+     }
+   }
+ }
++null
