@@ -8,7 +8,7 @@
       "labels" .custom.fullLabels
       "annotations" .Values.serviceAccount.annotations
     )
-    "automountServiceAccountToken" true
+    "automountServiceAccountToken" .Values.serviceAccount.automount
   )
   nil
 ) | toYaml }}

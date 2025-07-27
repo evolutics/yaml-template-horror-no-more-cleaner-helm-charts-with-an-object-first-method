@@ -13,7 +13,7 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-automountServiceAccountToken: true
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
 ```
 
 The construction of a Kubernetes object is mixed with its YAML encoding.
@@ -30,7 +30,7 @@ Consider this form instead:
     "labels" .custom.fullLabels
     "annotations" .Values.serviceAccount.annotations
   )
-  "automountServiceAccountToken" true
+  "automountServiceAccountToken" .Values.serviceAccount.automount
 ) | toYaml }}
 ```
 

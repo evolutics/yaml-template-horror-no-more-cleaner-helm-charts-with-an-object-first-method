@@ -8,4 +8,4 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-automountServiceAccountToken: true
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
