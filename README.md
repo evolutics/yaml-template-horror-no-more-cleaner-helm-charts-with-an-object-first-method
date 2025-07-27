@@ -4,17 +4,16 @@ Most Helm chart templates look something like this:
 
 ```
 apiVersion: v1
-kind: ConfigMap
+kind: ServiceAccount
 metadata:
-  name: {{ include "example.fullName" . }}
+  name: {{ include "example.serviceAccountName" . }}
   labels:
     {{- include "example.fullLabels" . | nindent 4 }}
-  {{- with .Values.annotations }}
+  {{- with .Values.serviceAccount.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-data:
-  foo: "bar"
+automountServiceAccountToken: true
 ```
 
 The construction of a Kubernetes object is mixed with its YAML encoding.
@@ -25,15 +24,13 @@ Consider this form instead:
 {{ include "example.customObjects" . }}
 {{ (dict
   "apiVersion" "v1"
-  "kind" "ConfigMap"
+  "kind" "ServiceAccount"
   "metadata" (dict
-    "name" .custom.fullName
+    "name" .custom.serviceAccountName
     "labels" .custom.fullLabels
-    "annotations" .Values.annotations
+    "annotations" .Values.serviceAccount.annotations
   )
-  "data" (dict
-    "foo" "bar"
-  )
+  "automountServiceAccountToken" true
 ) | toYaml }}
 ```
 
