@@ -6,7 +6,4 @@ cd -- "$(dirname -- "$0")/.."
 
 travel-kit
 
-(
-  cd example
-  helm lint --strict
-)
+helm lint --strict example
