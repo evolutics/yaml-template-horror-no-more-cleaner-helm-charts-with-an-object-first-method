@@ -102,3 +102,18 @@ variable `$_` as otherwise the template engine tries to render it.
 While real-world Helm charts are surely more complex than this example, it shows
 the basics of how to put object construction at the center of our code, with
 serialization left only to the boundary.
+
+## Alternatives for variable Kubernetes manifests
+
+The assumption so far has been that you need to author your own Helm charts,
+perhaps because users of your Kubernetes application favor Helm.
+
+If that is not the case, but you just need to generate variations of your
+Kubernetes manifests (for instance, to support different environments), there
+are more options to consider:
+
+- [Kustomize](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/)
+  (`kubectl apply --kustomize …`)
+- [Skaffold](https://skaffold.dev)
+- [Terraform](https://developer.hashicorp.com/terraform)
+- Any programming language with JSON/YAML serialization
