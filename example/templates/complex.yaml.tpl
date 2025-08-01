@@ -3,16 +3,16 @@
   "apiVersion" "apps/v1"
   "kind" "Deployment"
   "metadata" (dict
-    "name" .custom.fullName
-    "labels" .custom.fullLabels
+    "name" .Release.Name
+    "labels" .custom.labels
   )
   "spec" (dict
     "selector" (dict
-      "matchLabels" .custom.selectorLabels
+      "matchLabels" .custom.labels
     )
     "template" (dict
       "metadata" (dict
-        "labels" .custom.fullLabels
+        "labels" .custom.labels
       )
       "spec" (dict
         "serviceAccountName" .custom.serviceAccountName

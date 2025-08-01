@@ -1,5 +1,3 @@
-extraLabels: {}
-
 serviceAccount:
   create: true
   name: ""

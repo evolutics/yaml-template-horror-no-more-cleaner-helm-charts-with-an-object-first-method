@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
   name: {{ include "my-chart.serviceAccountName" . | quote }}
   labels:
-    {{- include "my-chart.fullLabels" . | nindent 4 }}
+    {{- include "my-chart.labels" . | nindent 4 }}
   {{- with .Values.serviceAccount.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

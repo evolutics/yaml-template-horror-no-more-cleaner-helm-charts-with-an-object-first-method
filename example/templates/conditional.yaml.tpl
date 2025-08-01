@@ -5,7 +5,7 @@
     "kind" "ServiceAccount"
     "metadata" (dict
       "name" .custom.serviceAccountName
-      "labels" .custom.fullLabels
+      "labels" .custom.labels
       "annotations" .Values.serviceAccount.annotations
     )
     "automountServiceAccountToken" .Values.serviceAccount.automount

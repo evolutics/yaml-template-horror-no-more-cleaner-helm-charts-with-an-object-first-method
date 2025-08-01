@@ -1,7 +1,3 @@
-extraLabels:
-  label-key-foo: label-value-bar
-  label-key-baz: label-value-qux
-
 serviceAccount:
   create: true
   name: service-account-foo

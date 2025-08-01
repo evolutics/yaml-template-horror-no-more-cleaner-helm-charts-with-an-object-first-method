@@ -8,7 +8,7 @@ kind: ServiceAccount
 metadata:
   name: {{ include "my-chart.serviceAccountName" . | quote }}
   labels:
-    {{- include "my-chart.fullLabels" . | nindent 4 }}
+    {{- include "my-chart.labels" . | nindent 4 }}
   {{- with .Values.serviceAccount.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -27,7 +27,7 @@ Consider this form instead:
   "kind" "ServiceAccount"
   "metadata" (dict
     "name" .custom.serviceAccountName
-    "labels" .custom.fullLabels
+    "labels" .custom.labels
     "annotations" .Values.serviceAccount.annotations
   )
   "automountServiceAccountToken" .Values.serviceAccount.automount
