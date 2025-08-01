@@ -105,6 +105,49 @@ While real-world Helm charts are surely more complex than this example, it shows
 the basics of how to put object construction at the center of our code, with
 serialization left only to the boundary.
 
+## Common patterns
+
+The following shows the alternative applied to commonly seen patterns.
+
+### Merging maps
+
+```diff
+-{{- with .Values.foo }}
+-{{ toYaml . }}
+-{{- end }}
+-{{- with .Values.bar }}
+-{{ toYaml . }}
+-{{- end }}
+
++merge (deepCopy .Values.foo) (deepCopy .Values.bar)
+```
+
+Tricky here:
+[`merge`](https://helm.sh/docs/chart_template_guide/function_list/#merge-mustmerge)
+modifies its arguments as a side effect, hence the calls to `deepCopy`.
+
+### Conditional creation of Kubernetes object
+
+```diff
+-{{- if .Values.serviceAccount.create -}}
+-apiVersion: v1
+-kind: ServiceAccount
+-metadata: …
+-{{- end }}
+
++{{ toYaml (.Values.serviceAccount.create | ternary
++  (dict
++    "apiVersion" "v1"
++    "kind" "ServiceAccount"
++    "metadata" …
++  )
++  nil
++) }}
+```
+
+The `nil` in the else case is serialized as YAML `null`, which is equivalent to
+an empty YAML file.
+
 ## Alternatives for variable Kubernetes manifests
 
 The assumption so far has been that you need to author your own Helm charts,
