@@ -21,7 +21,7 @@ The construction of a Kubernetes object is mixed with its YAML encoding.
 Consider this form instead:
 
 ```
-{{ include "my-chart.customObjects" . }}
+{{ include "my-chart.setCustom" . }}
 {{ toYaml (dict
   "apiVersion" "v1"
   "kind" "ServiceAccount"

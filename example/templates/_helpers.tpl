@@ -1,4 +1,4 @@
-{{ define "my-chart.customObjects" }}
+{{ define "my-chart.setCustom" }}
 {{ $_ := set . "custom" (dict
   "labels" (dict
     "app.kubernetes.io/name" .Chart.Name
