@@ -5,6 +5,5 @@
     "app.kubernetes.io/instance" .Release.Name
   )
   "serviceAccountName" (default .Release.Name .Values.serviceAccount.name)
-)
-}}
+) }}
 {{ end }}
