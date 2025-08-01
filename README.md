@@ -1,6 +1,15 @@
 # YAML Template Horror No More: Cleaner Helm Charts with an Object-First Style
 
-Most Helm chart templates look something like this:
+Helm charts are probably the most common package format to distribute Kubernetes
+applications. Parametrization of those packages is supported by Go templates to
+generate variations of YAML manifests. These templates are usually written in a
+somewhat fragile style because the construction of Kubernetes manifest objects
+is entangled with their YAML serialization. However, there is an alternative for
+cleaner templates – without extra tooling.
+
+## Status quo
+
+Helm chart templates often look something like this:
 
 ```
 apiVersion: v1
@@ -16,9 +25,44 @@ metadata:
 automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
 ```
 
-The construction of a Kubernetes object is mixed with its YAML encoding.
+It is easy to see where such templates come from: take a plain YAML manifest as
+a base and then gradually introduce placeholders `{{ … }}` where parametrization
+is desired. This is effectively string interpolation with user-provided
+`.Values` and text from named templates to `include`.
 
-Consider this form instead:
+This text-first style has its complications.
+
+First, it is well known that indentation must be carefully addressed, as is done
+using `nindent 4` for labels. The number 4 here is sensitively tied to its
+context; it would have to change when used at another nesting level (for
+instance, to `nindent 8` for pod metadata in a deployment spec).
+
+Moreover, the example template makes sure the object name is quoted as a string
+by applying the function `quote`, preventing issues with escaping or unquoted
+words representing non-string literals such as the Boolean `no`.
+
+In short, instead of focussing on Kubernetes manifests, maintainers need to pay
+much of their attention to serialization in templates, with readability
+suffering.
+
+## Alternative style
+
+It would be desirable to work directly with Kubernetes manifest objects, leaving
+the entire business of YAML serialization up to a tool.
+
+Thus, consider the following two-phase approach for a clean separation of
+concerns:
+
+1. Construct a Kubernetes manifest object, that is, a (possibly nested)
+   structure made from maps, lists, strings, integers, Booleans, etc. No
+   serialization at this point.
+1. Serialize the whole Kubernetes manifest object using `toYaml`.
+
+The first phase of constructing objects is supported by Helm template functions
+such as `dict` or `list`. For instance, the template expression
+`dict "a" "b" "c" 3` represents a map `{"a": "b", "c": 3}`.
+
+Rewritten in an object-first style, above example is equivalent to this:
 
 ```
 {{ include "my-chart.setCustom" . }}
@@ -34,5 +78,27 @@ Consider this form instead:
 ) }}
 ```
 
-Here the object is fully constructed using template functions like `dict`. Its
-encoding happens at the top-level with `toYaml`.
+The `include` on the first line does not render anything on its own but provides
+extra values to be shared between templates under the name `.custom`. For this
+purpose, the template `my-chart.setCustom` is defined in `_helpers.tpl` like so:
+
+```
+{{ define "my-chart.setCustom" }}
+{{ $_ := set . "custom" (dict
+  "labels" (dict
+    "app.kubernetes.io/name" .Chart.Name
+    "app.kubernetes.io/instance" .Release.Name
+  )
+  "serviceAccountName" (default .Release.Name .Values.serviceAccount.name)
+) }}
+{{ end }}
+```
+
+The function `set` on line 2 mutates a map (dot `.` in this case) by setting the
+given key `"custom"` to the given value `dict …`. Note that while `set` mutates
+a map in place, it still returns the map; we assign the returned map to a dummy
+variable `$_` as otherwise the template engine tries to render it.
+
+While real-world Helm charts are surely more complex than this example, it shows
+the basics of how to put object construction at the center of our code, with
+serialization left only to the boundary.
