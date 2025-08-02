@@ -109,6 +109,30 @@ serialization left only to the boundary.
 
 The following shows how to express commonly seen patterns in the alternative.
 
+### Maps, lists
+
+```diff
+-image: my-image
+-env:
+-  - name: LOG_LEVEL
+-    value: "debug"
+-  - name: PORT
+-    value: "443"
+
++dict
++  "image" "my-image"
++  "env" (list
++    (dict
++      "name" "LOG_LEVEL"
++      "value" "debug"
++    )
++    (dict
++      "name" "PORT"
++      "value" "443"
++    )
++  )
+```
+
 ### Conditional
 
 ```diff
