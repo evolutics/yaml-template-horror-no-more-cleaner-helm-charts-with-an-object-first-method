@@ -109,6 +109,21 @@ serialization left only to the boundary.
 
 The following shows the alternative applied to commonly seen patterns.
 
+### Conditional
+
+```diff
+-{{- if contains $name .Release.Name }}
+-{{- .Release.Name }}
+-{{- else }}
+-{{- printf "%v-%v" .Release.Name $name }}
+-{{- end }}
+
++{{- contains $name .Release.Name | ternary
++  .Release.Name
++  (printf "%v-%v" .Release.Name $name)
++-}}
+```
+
 ### Merging maps
 
 ```diff
