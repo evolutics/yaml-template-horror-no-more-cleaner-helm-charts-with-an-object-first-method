@@ -112,14 +112,14 @@ The following shows the alternative applied to commonly seen patterns.
 ### Merging maps
 
 ```diff
--{{- with .Values.foo }}
+-{{- with .Values.baseLabels }}
 -{{ toYaml . }}
 -{{- end }}
--{{- with .Values.bar }}
+-{{- with .Values.extraLabels }}
 -{{ toYaml . }}
 -{{- end }}
 
-+merge (deepCopy .Values.foo) (deepCopy .Values.bar)
++merge (deepCopy .Values.baseLabels) (deepCopy .Values.extraLabels)
 ```
 
 Tricky here:
