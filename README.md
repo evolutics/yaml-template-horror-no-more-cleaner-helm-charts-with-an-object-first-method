@@ -105,9 +105,9 @@ While real-world Helm charts are surely more complex than this example, it shows
 the basics of how to put object construction at the center of our code, with
 serialization left only to the boundary.
 
-## Common patterns
+## Alternative applied to common patterns
 
-The following shows the alternative applied to commonly seen patterns.
+The following shows how to express commonly seen patterns in the alternative.
 
 ### Conditional
 
