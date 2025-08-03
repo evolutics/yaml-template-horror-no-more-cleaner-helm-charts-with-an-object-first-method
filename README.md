@@ -165,7 +165,7 @@ Tricky here:
 [`merge`](https://helm.sh/docs/chart_template_guide/function_list/#merge-mustmerge)
 modifies its arguments as a side effect, hence the calls to `deepCopy`.
 
-### Conditional creation of Kubernetes object
+### Conditional creation of Kubernetes objects
 
 ```diff
 -{{- if .Values.serviceAccount.create -}}
