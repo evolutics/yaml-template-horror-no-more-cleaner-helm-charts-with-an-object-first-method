@@ -133,7 +133,7 @@ The following shows how to express commonly seen patterns in the alternative.
 +  )
 ```
 
-### Conditional
+### Conditionals
 
 ```diff
 -{{- if contains $name .Release.Name }}
