@@ -112,6 +112,7 @@ The following shows how to express commonly seen patterns in the alternative.
 ### Maps, lists
 
 ```diff
+-name: my-container
 -image: my-image
 -env:
 -  - name: LOG_LEVEL
@@ -120,6 +121,7 @@ The following shows how to express commonly seen patterns in the alternative.
 -    value: "443"
 
 +dict
++  "name" "my-container"
 +  "image" "my-image"
 +  "env" (list
 +    (dict
