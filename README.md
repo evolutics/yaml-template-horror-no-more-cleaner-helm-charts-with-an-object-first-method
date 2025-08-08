@@ -7,6 +7,26 @@ somewhat fragile style because the construction of Kubernetes manifest objects
 is entangled with their YAML serialization. However, there is an alternative for
 cleaner templates – without extra tooling.
 
+```
+               ___
+           ,-``   ``-,
+          /           \,
+       _ / ^            \_
+      //|   ,           |\\
+      |/| (.)     (.)   |\|
+      ||\  `   . . `    /||
+      \  \,     _      /  /
+       \   \   { }    /  /
+        \   #  {_}   /  /
+      ###| |#\      #| |
+    #####| |##\___,/#| |
+   ######| |##     ##|  \
+  #######/ /###\ /####\ #\
+  ######/#/############\##\
+  #####/#/##############|##\
+  ##########################
+```
+
 ## Status quo
 
 Helm chart templates often look something like this:
