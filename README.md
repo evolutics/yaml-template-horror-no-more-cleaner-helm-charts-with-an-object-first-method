@@ -153,6 +153,29 @@ The following shows how to express commonly seen patterns in the alternative.
 +  )
 ```
 
+### Code reuse in `_helpers.tpl`
+
+```diff
+-{{- define "my-chart.labels" -}}
+-app.kubernetes.io/name: {{ .Chart.Name | quote }}
+-app.kubernetes.io/instance: {{ .Release.Name | quote }}
+-{{- end }}
+-
+-{{- define "my-chart.serviceAccountName" -}}
+-{{- default .Release.Name .Values.serviceAccount.name }}
+-{{- end }}
+
++{{ define "my-chart.setCustom" }}
++{{ $_ := set . "custom" (dict
++  "labels" (dict
++    "app.kubernetes.io/name" .Chart.Name
++    "app.kubernetes.io/instance" .Release.Name
++  )
++  "serviceAccountName" (default .Release.Name .Values.serviceAccount.name)
++) }}
++{{ end }}
+```
+
 ### Conditionals
 
 ```diff
