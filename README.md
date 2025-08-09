@@ -52,8 +52,8 @@ is desired. This is effectively string interpolation with user-provided
 
 This text-first style has its complications.
 
-First, it is well known that indentation must be carefully addressed, as is done
-using `nindent 4` for labels. The number 4 here is sensitively tied to its
+Maybe most well known is that indentation must be carefully addressed, as is
+done using `nindent 4` for labels. The number 4 here is sensitively tied to its
 context; it would have to change when used at another nesting level (for
 instance, to `nindent 8` for pod metadata in a deployment spec).
 
