@@ -153,7 +153,7 @@ The following shows how to express commonly seen patterns in the alternative.
 +  )
 ```
 
-### Code reuse in `_helpers.tpl`
+### Code reuse via `_helpers.tpl`
 
 ```diff
 -{{- define "my-chart.labels" -}}
